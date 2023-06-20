@@ -3,29 +3,33 @@ const graficoDolar = document.getElementById('graficoDolar');
 const graficoParaDolar = new Chart(graficoDolar, {
     type: 'line',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [],
         datasets: [{
-            label: '# of Votes',
-            data: [1, 2, 3, 4, 5, 10],
+            label: 'Dolar',
+            data: [],
             borderWidth: 1
         }]
     },
 });
 
 async function conectaAPI() {
-    const conecta = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL");
-    const conectaTraduzido = await conecta.json();
-    console.log(conectaTraduzido);
-}
+    const conecta = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
+    const conectaTraduzido = await conecta.json()
 
-setInterval(() => conectaAPI(), 5000);
+    adicionaDados(graficoParaDolar, geraHorario(), conectaTraduzido.USDBRL.ask)
+}
+setInterval(() => conectaAPI(), 1000 * 60)
 
 function geraHorario() {
-    let data = new Date();
-    let horario = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
-    console.log(horario);
-    return horario;
+    let data = new Date()
+    let horario = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds()
+    return horario
 }
 
-geraHorario();
-
+function adicionaDados(grafico, legenda, dados) {
+    grafico.data.labels.push(legenda)
+    grafico.data.datasets.forEach((dataset) => {
+        dataset.data.push(dados)
+    })
+    grafico.update();
+}
