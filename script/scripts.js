@@ -18,7 +18,7 @@ async function conectaAPI() {
 
     adicionaDados(graficoParaDolar, geraHorario(), conectaTraduzido.USDBRL.ask)
 }
-setInterval(() => conectaAPI(), 1000 * 60)
+setInterval(() => conectaAPI(), 1000 * 30)
 
 function geraHorario() {
     let data = new Date()
