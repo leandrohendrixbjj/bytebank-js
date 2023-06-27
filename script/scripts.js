@@ -14,15 +14,6 @@ const graficoParaDolar = new Chart(graficoDolar, {
     },
 });
 
-async function conectaAPI() {
-    const conecta = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
-    const conectaTraduzido = await conecta.json()
-
-    adicionaDados(graficoParaDolar, geraHorario(), conectaTraduzido.USDBRL.ask)
-    imprimeCotacao("dolar", conectaTraduzido.USDBRL.ask)
-}
-setInterval(() => conectaAPI(), 1000 * 30)
-
 function geraHorario() {
     let data = new Date()
     let horario = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds()
