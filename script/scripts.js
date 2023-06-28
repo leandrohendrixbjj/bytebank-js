@@ -20,7 +20,7 @@ function geraHorario() {
     return horario
 }
 
-function adicionaDados(grafico, legenda, dados) {
+function adicionarDados(grafico, legenda, dados) {
     grafico.data.labels.push(legenda)
     grafico.data.datasets.forEach((dataset) => {
         dataset.data.push(dados)
@@ -30,3 +30,10 @@ function adicionaDados(grafico, legenda, dados) {
 
 let workerDolar = new Worker('./script/workers/workerDolar.js');
 workerDolar.postMessage("usd");
+
+workerDolar.addEventListener("message", event => {
+    let tempo = geraHorario();
+    let valor = event.data.ask;
+    imprimeCotacao("dolar", valor);
+    adicionarDados(graficoParaDolar, tempo, valor);
+})
