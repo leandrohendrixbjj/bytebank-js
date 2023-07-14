@@ -1,10 +1,10 @@
-import imprimeCotacaoDolar from "./imprimirDolar.js";
+import imprimeCotacaoDolar from "./print/dolar.js";
 import { geraHorario, adicionarDados, graficoParaDolar } from "./helpers.js"
 
 const graficoDolar = document.getElementById('graficoDolar')
 const chartDolar = graficoParaDolar(graficoDolar)
 
-let workerDolar = new Worker('./script/workers/workerDolar.js')
+let workerDolar = new Worker('./script/workers/dolar.js')
 workerDolar.postMessage("usd")
 
 workerDolar.addEventListener("message", event => {
