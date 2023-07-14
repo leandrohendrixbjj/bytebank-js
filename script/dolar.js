@@ -1,27 +1,16 @@
 import imprimeCotacaoDolar from "./imprimirDolar.js";
-import { geraHorario, adicionarDados } from "./helpers.js"
+import { geraHorario, adicionarDados, graficoParaDolar } from "./helpers.js"
 
-const graficoDolar = document.getElementById('graficoDolar');
+const graficoDolar = document.getElementById('graficoDolar')
+const chartDolar = graficoParaDolar(graficoDolar)
 
-const graficoParaDolar = new Chart(graficoDolar, {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [{
-            label: 'Dolar',
-            data: [],
-            borderWidth: 1
-        }]
-    },
-});
-
-let workerDolar = new Worker('./script/workers/workerDolar.js');
-workerDolar.postMessage("usd");
+let workerDolar = new Worker('./script/workers/workerDolar.js')
+workerDolar.postMessage("usd")
 
 workerDolar.addEventListener("message", event => {
     let tempo = geraHorario();
     let valor = event.data.ask;
     imprimeCotacaoDolar("dolar", valor);
-    adicionarDados(graficoParaDolar, tempo, valor);
+    adicionarDados(chartDolar, tempo, valor);
 })
 

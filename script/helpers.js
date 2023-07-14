@@ -12,4 +12,32 @@ function adicionarDados(grafico, legenda, dados) {
     return grafico.update();
 }
 
-export { geraHorario, adicionarDados } 
+function graficoParaDolar(graficoDolar) {
+    return new Chart(graficoDolar, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Dolar',
+                data: [],
+                borderWidth: 1
+            }]
+        },
+    });
+}
+
+function graficoParaIene(graficoIene) {
+    return new Chart(graficoIene, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Iene',
+                data: [],
+                borderWidth: 1
+            }]
+        },
+    });
+}
+
+export { geraHorario, adicionarDados, graficoParaDolar, graficoParaIene } 
