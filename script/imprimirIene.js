@@ -1,6 +1,6 @@
-const lista = document.querySelector('[data-lista]');
+const lista = document.getElementById('Iene');
 
-function imprimeCotacao(nome, valor) {
+function imprimeCotacaoIene(nome, valor) {
     lista.innerHTML = '';
 
     for (let multiplicador = 1; multiplicador <= 1000; multiplicador *= 10) {
@@ -10,4 +10,4 @@ function imprimeCotacao(nome, valor) {
     }
 }
 
-export default imprimeCotacao
+export default imprimeCotacaoIene
